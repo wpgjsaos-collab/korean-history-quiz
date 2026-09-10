@@ -3,137 +3,237 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#0f2747" />
 <title>한국사 상식퀴즈 20문제</title>
 <style>
   :root{
-    --bg:#f6f7fb;
-    --card:#ffffff;
-    --text:#1f2937;
-    --muted:#6b7280;
-    --accent:#2563eb;
+    --navy:#0f2747;
+    --navy2:#173d6b;
+    --gold:#d8a74a;
+    --cream:#f8f4ea;
+    --paper:#fffdf8;
+    --ink:#1d2430;
+    --muted:#697382;
+    --line:#e8e1d4;
     --ok:#15803d;
-    --bad:#b91c1c;
-    --border:#e5e7eb;
+    --ok-bg:#eefbf2;
+    --bad:#b42318;
+    --bad-bg:#fff1f0;
+    --shadow:0 14px 38px rgba(15,39,71,.10);
   }
   *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
   body{
     margin:0;
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans KR",Arial,sans-serif;
-    background:var(--bg);
-    color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans KR",Roboto,Arial,sans-serif;
+    color:var(--ink);
+    background:
+      radial-gradient(circle at 15% 0%, rgba(216,167,74,.12), transparent 30%),
+      radial-gradient(circle at 90% 12%, rgba(23,61,107,.10), transparent 28%),
+      var(--cream);
   }
-  .wrap{
-    max-width:850px;
-    margin:0 auto;
-    padding:24px 16px 60px;
+  body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    opacity:.18;
+    background-image:linear-gradient(rgba(15,39,71,.025) 1px, transparent 1px),linear-gradient(90deg,rgba(15,39,71,.025) 1px,transparent 1px);
+    background-size:28px 28px;
   }
-  header{
-    text-align:center;
-    margin-bottom:24px;
-  }
-  h1{font-size:2rem;margin:.2rem 0}
-  .sub{color:var(--muted);margin-top:8px}
-  .progress{
-    position:sticky;
-    top:0;
-    z-index:5;
-    background:rgba(246,247,251,.95);
-    backdrop-filter: blur(6px);
-    padding:10px 0 14px;
-    margin-bottom:10px;
-  }
-  .bar{
-    height:10px;
-    background:#e5e7eb;
-    border-radius:999px;
+  .hero{
+    background:linear-gradient(135deg,var(--navy),var(--navy2));
+    color:#fff;
+    padding:46px 18px 52px;
+    position:relative;
     overflow:hidden;
   }
-  .bar > div{
-    height:100%;
-    width:0%;
-    background:var(--accent);
-    transition:width .2s ease;
+  .hero::after{
+    content:"韓國史";
+    position:absolute;
+    right:-18px;
+    bottom:-28px;
+    font-family:serif;
+    font-size:112px;
+    font-weight:800;
+    opacity:.055;
+    letter-spacing:-8px;
+    white-space:nowrap;
   }
-  .q{
-    background:var(--card);
-    border:1px solid var(--border);
+  .hero-inner{max-width:900px;margin:0 auto;position:relative;z-index:1}
+  .eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:7px 11px;
+    border:1px solid rgba(255,255,255,.22);
+    border-radius:999px;
+    background:rgba(255,255,255,.08);
+    font-size:.83rem;
+    font-weight:700;
+    letter-spacing:.02em;
+  }
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 4px rgba(216,167,74,.15)}
+  h1{font-size:clamp(2rem,5vw,3.35rem);margin:16px 0 10px;line-height:1.1;letter-spacing:-.04em}
+  .hero p{margin:0;color:rgba(255,255,255,.78);font-size:1rem;line-height:1.65}
+  .hero-stats{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+  .stat{padding:9px 12px;border-radius:12px;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.12);font-size:.9rem}
+  .wrap{max-width:900px;margin:0 auto;padding:0 16px 70px;position:relative}
+  .progress-shell{
+    position:sticky;
+    top:10px;
+    z-index:20;
+    margin:-24px 0 22px;
+    padding:13px 15px;
     border-radius:16px;
-    padding:20px;
+    background:rgba(255,253,248,.92);
+    backdrop-filter:blur(14px);
+    -webkit-backdrop-filter:blur(14px);
+    border:1px solid rgba(232,225,212,.95);
+    box-shadow:0 8px 26px rgba(15,39,71,.09);
+  }
+  .progress-top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:9px}
+  .progress-title{font-weight:800;font-size:.9rem;color:var(--navy)}
+  #progressText{font-size:.86rem;color:var(--muted);font-weight:700}
+  .bar{height:8px;background:#ece7dd;border-radius:999px;overflow:hidden}
+  .bar>div{height:100%;width:0;background:linear-gradient(90deg,var(--gold),#efc76e);border-radius:inherit;transition:width .25s ease}
+  .q{
+    background:rgba(255,253,248,.96);
+    border:1px solid var(--line);
+    border-radius:22px;
+    padding:22px;
     margin:16px 0;
-    box-shadow:0 4px 18px rgba(0,0,0,.04);
+    box-shadow:var(--shadow);
+    transition:transform .18s ease, box-shadow .18s ease;
   }
-  .q h2{
-    font-size:1.08rem;
-    line-height:1.5;
-    margin:0 0 14px;
-  }
-  .opt{
-    display:block;
-    border:1px solid var(--border);
+  .q:hover{transform:translateY(-2px);box-shadow:0 18px 44px rgba(15,39,71,.13)}
+  .q-head{display:flex;align-items:flex-start;gap:13px;margin-bottom:16px}
+  .num{
+    flex:0 0 38px;
+    width:38px;height:38px;
     border-radius:12px;
-    padding:12px 14px;
-    margin:8px 0;
-    cursor:pointer;
-    transition:.15s ease;
+    display:grid;place-items:center;
+    color:#fff;
+    background:linear-gradient(135deg,var(--navy),var(--navy2));
+    font-weight:800;
+    box-shadow:0 6px 14px rgba(15,39,71,.18);
   }
-  .opt:hover{border-color:#93c5fd;background:#eff6ff}
-  .opt input{margin-right:9px}
+  .q h2{font-size:1.08rem;line-height:1.55;margin:4px 0 0;letter-spacing:-.015em}
+  .options{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .opt{
+    position:relative;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    min-height:52px;
+    padding:12px 14px;
+    border:1px solid #ddd7ca;
+    border-radius:14px;
+    background:#fff;
+    cursor:pointer;
+    transition:.16s ease;
+    font-weight:650;
+    line-height:1.35;
+  }
+  .opt:hover{border-color:#9fb2c9;background:#f7faff;transform:translateY(-1px)}
+  .opt input{position:absolute;opacity:0;pointer-events:none}
+  .choice{
+    flex:0 0 27px;
+    width:27px;height:27px;
+    border-radius:9px;
+    display:grid;place-items:center;
+    background:#f2efe8;
+    color:#68717d;
+    font-size:.82rem;
+    font-weight:900;
+    transition:.16s ease;
+  }
+  .opt:has(input:checked){border-color:var(--navy2);background:#f2f7fd;box-shadow:0 0 0 2px rgba(23,61,107,.08)}
+  .opt:has(input:checked) .choice{background:var(--navy);color:#fff}
+  .opt.correct{border-color:#79c991;background:var(--ok-bg)}
+  .opt.correct .choice{background:var(--ok);color:#fff}
+  .opt.wrong{border-color:#ec9b95;background:var(--bad-bg)}
+  .opt.wrong .choice{background:var(--bad);color:#fff}
   .explain{
     display:none;
-    margin-top:12px;
-    padding:12px;
-    border-radius:10px;
-    background:#f9fafb;
-    color:#374151;
-    line-height:1.55;
+    margin-top:14px;
+    padding:14px 15px;
+    border-radius:14px;
+    background:#f6f2e8;
+    border-left:4px solid var(--gold);
+    color:#39414d;
+    line-height:1.65;
+    font-size:.94rem;
   }
-  .explain.show{display:block}
-  .correct{border-color:#86efac;background:#f0fdf4}
-  .wrong{border-color:#fca5a5;background:#fef2f2}
-  .actions{
-    display:flex;
-    gap:12px;
-    flex-wrap:wrap;
-    justify-content:center;
-    margin-top:28px;
-  }
+  .explain.show{display:block;animation:fadeUp .22s ease}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+  .actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin:30px 0 0}
   button{
-    border:none;
-    border-radius:12px;
-    padding:13px 20px;
-    font-weight:700;
-    cursor:pointer;
+    border:0;
+    border-radius:14px;
+    padding:14px 22px;
+    min-width:145px;
+    font-weight:850;
     font-size:1rem;
+    cursor:pointer;
+    transition:.18s ease;
   }
-  #grade{background:var(--accent);color:#fff}
-  #reset{background:#111827;color:#fff}
+  button:hover{transform:translateY(-2px)}
+  #grade{color:#fff;background:linear-gradient(135deg,var(--navy),var(--navy2));box-shadow:0 10px 22px rgba(15,39,71,.23)}
+  #reset{color:var(--navy);background:#fff;border:1px solid #d9d2c5}
   #result{
     display:none;
     margin-top:26px;
-    background:#111827;
-    color:white;
-    border-radius:18px;
-    padding:24px;
+    border-radius:24px;
+    padding:30px 22px;
     text-align:center;
+    color:#fff;
+    background:linear-gradient(135deg,var(--navy),#0d315b 60%,#124d76);
+    box-shadow:0 18px 50px rgba(15,39,71,.24);
+    position:relative;
+    overflow:hidden;
   }
-  #result.show{display:block}
-  #score{
-    font-size:2rem;
-    font-weight:800;
-    margin:6px 0 8px;
+  #result::before{content:"";position:absolute;inset:-70px auto auto -70px;width:160px;height:160px;border:28px solid rgba(216,167,74,.12);border-radius:50%}
+  #result.show{display:block;animation:fadeUp .3s ease}
+  .result-label{font-size:.92rem;color:rgba(255,255,255,.7);font-weight:700}
+  #score{font-size:clamp(2.5rem,8vw,4.2rem);font-weight:900;letter-spacing:-.05em;margin:5px 0;color:#fff}
+  #comment{font-size:1.06rem;font-weight:750;color:#f4d797}
+  .footer{text-align:center;color:#8a8f96;font-size:.82rem;margin-top:30px;line-height:1.6}
+  @media (max-width:680px){
+    .hero{padding-top:34px;padding-bottom:48px}
+    .hero::after{font-size:74px;right:-10px}
+    .wrap{padding-left:12px;padding-right:12px}
+    .progress-shell{top:6px;margin-top:-21px}
+    .q{padding:17px;border-radius:18px}
+    .q-head{gap:10px}
+    .num{width:34px;height:34px;flex-basis:34px;border-radius:10px}
+    .q h2{font-size:1rem;margin-top:2px}
+    .options{grid-template-columns:1fr}
+    .opt{min-height:49px}
+    .actions button{flex:1;min-width:0}
   }
-  .tiny{font-size:.9rem;color:var(--muted)}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <header>
-    <h1>한국사 상식퀴즈 20문제</h1>
-    <div class="sub">성인용 난이도 · 객관식 4지선다 · 제출 후 정답과 설명 확인</div>
-  </header>
+<section class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow"><span class="dot"></span> KOREAN HISTORY QUIZ</div>
+    <h1>한국사 상식퀴즈</h1>
+    <p>고조선부터 대한민국 정부 수립까지.<br>성인용 4지선다 20문제로 가볍게 실력을 확인해보세요.</p>
+    <div class="hero-stats">
+      <div class="stat">20문제</div>
+      <div class="stat">4지선다</div>
+      <div class="stat">정답 해설 제공</div>
+    </div>
+  </div>
+</section>
 
-  <div class="progress">
-    <div class="tiny" id="progressText">0 / 20 응답</div>
+<div class="wrap">
+  <div class="progress-shell">
+    <div class="progress-top">
+      <div class="progress-title">진행률</div>
+      <div id="progressText">0 / 20 응답</div>
+    </div>
     <div class="bar"><div id="progressBar"></div></div>
   </div>
 
@@ -145,136 +245,57 @@
   </div>
 
   <div id="result">
-    <div>최종 점수</div>
+    <div class="result-label">최종 점수</div>
     <div id="score"></div>
     <div id="comment"></div>
   </div>
+
+  <div class="footer">한국사 상식퀴즈 · 답안을 제출하면 각 문제의 정답과 해설이 표시됩니다.</div>
 </div>
 
 <script>
 const qs = [
-{
-q:"고조선을 건국했다고 전해지는 인물은 누구일까요?",
-o:["단군왕검","주몽","박혁거세","온조"], a:0,
-e:"『삼국유사』 등에 따르면 단군왕검이 고조선을 건국했다고 전해집니다. 전통적으로 건국 연대는 기원전 2333년으로 알려져 있습니다."
-},
-{
-q:"삼국 중 가장 먼저 한강 유역을 차지하며 전성기를 맞은 나라는 어디일까요?",
-o:["고구려","백제","신라","가야"], a:1,
-e:"백제는 한강 유역을 기반으로 성장했고 근초고왕 때 전성기를 맞았습니다. 이후 고구려 장수왕, 신라 진흥왕이 한강 유역을 차지했습니다."
-},
-{
-q:"고구려의 전성기를 이끌며 영토를 크게 넓힌 왕은 누구일까요?",
-o:["광개토대왕","무령왕","진흥왕","성왕"], a:0,
-e:"광개토대왕은 고구려 영토를 크게 확장한 왕입니다. 그의 정복 활동과 업적은 광개토대왕릉비에 기록되어 있습니다."
-},
-{
-q:"신라가 삼국 통일 과정에서 동맹을 맺은 나라는 어디일까요?",
-o:["수","당","원","명"], a:1,
-e:"신라는 당나라와 나당연합을 맺어 660년 백제, 668년 고구려를 멸망시키는 데 성공했습니다."
-},
-{
-q:"통일신라 시대에 불국사와 석굴암이 조성된 시기의 왕은 누구일까요?",
-o:["신문왕","경덕왕","문무왕","진성여왕"], a:1,
-e:"불국사와 석굴암은 통일신라 경덕왕 때 김대성이 조성을 시작한 것으로 전해지며, 통일신라 불교문화의 대표 유산입니다."
-},
-{
-q:"고려를 건국한 인물은 누구일까요?",
-o:["왕건","궁예","견훤","최영"], a:0,
-e:"왕건은 918년 고려를 건국했고, 936년 후삼국을 통일했습니다. 고려의 초대 왕으로 태조 왕건이라 부릅니다."
-},
-{
-q:"고려 시대에 거란의 침입을 막는 데 활약한 장군은 누구일까요?",
-o:["강감찬","이성계","김유신","권율"], a:0,
-e:"강감찬은 고려 현종 때 거란의 제3차 침입을 막았고, 1019년 귀주대첩에서 큰 승리를 거뒀습니다."
-},
-{
-q:"고려가 몽골 침입에 맞서 수도를 옮긴 곳은 어디일까요?",
-o:["제주도","강화도","진도","거제도"], a:1,
-e:"고려는 몽골 기병의 공격을 피하고 장기 항전을 위해 1232년 수도를 개경에서 강화도로 옮겼습니다."
-},
-{
-q:"조선을 건국한 인물은 누구일까요?",
-o:["정도전","이성계","이방원","최영"], a:1,
-e:"이성계는 위화도 회군 이후 정치적 주도권을 잡고 1392년 조선을 건국해 초대 왕 태조가 되었습니다."
-},
-{
-q:"훈민정음을 창제한 조선의 왕은 누구일까요?",
-o:["태종","세종","세조","성종"], a:1,
-e:"세종은 백성이 쉽게 글을 쓰고 읽을 수 있도록 훈민정음을 창제했습니다. 1443년 창제, 1446년 반포가 핵심 연도입니다."
-},
-{
-q:"임진왜란이 시작된 해는 언제일까요?",
-o:["1592년","1600년","1636년","1453년"], a:0,
-e:"임진왜란은 1592년에 시작됐습니다. 이후 정유재란까지 이어져 1598년에 끝났습니다."
-},
-{
-q:"임진왜란 당시 한산도대첩을 이끈 장군은 누구일까요?",
-o:["이순신","권율","곽재우","김시민"], a:0,
-e:"이순신은 1592년 한산도대첩에서 조선 수군을 지휘해 일본 수군을 크게 격파했습니다."
-},
-{
-q:"조선 후기 정조가 건설한 성곽은 무엇일까요?",
-o:["남한산성","수원 화성","북한산성","공산성"], a:1,
-e:"정조는 아버지 사도세자의 능을 수원으로 옮긴 뒤 수원 화성을 건설했습니다. 정약용과 거중기도 함께 자주 언급됩니다."
-},
-{
-q:"조선 후기 대동법 시행을 확대하는 데 크게 기여한 인물은 누구일까요?",
-o:["김육","조광조","송시열","김정호"], a:0,
-e:"김육은 대동법 확대 시행을 적극 추진했습니다. 대동법은 공납의 폐단을 줄이고 쌀·포·동전 등으로 납부하게 한 제도입니다."
-},
-{
-q:"흥선대원군이 집권기에 추진한 정책으로 옳은 것은 무엇일까요?",
-o:["서원 대폭 정리","과거제 폐지","한글 전용 정책","신분제 완전 폐지"], a:0,
-e:"흥선대원군은 왕권 강화와 국가 재정 확보를 위해 전국의 서원을 대폭 정리했습니다."
-},
-{
-q:"강화도조약이 체결된 해는 언제일까요?",
-o:["1866년","1876년","1882년","1894년"], a:1,
-e:"강화도조약은 1876년 조선과 일본 사이에 체결되었습니다. 최초의 근대적 조약으로 평가되지만 일본에 유리한 불평등 조약이었습니다."
-},
-{
-q:"동학농민운동에서 농민군을 이끈 대표적인 지도자는 누구일까요?",
-o:["전봉준","안중근","김구","윤봉길"], a:0,
-e:"전봉준은 1894년 동학농민운동의 대표 지도자이며 '녹두장군'이라는 별명으로도 잘 알려져 있습니다."
-},
-{
-q:"1919년 3·1운동 이후 수립된 정부는 무엇일까요?",
-o:["대한민국 임시정부","대한제국","통감부","조선총독부"], a:0,
-e:"3·1운동 이후 독립운동 세력을 통합하기 위해 1919년 중국 상하이에서 대한민국 임시정부가 수립되었습니다."
-},
-{
-q:"이토 히로부미를 하얼빈에서 저격한 독립운동가는 누구일까요?",
-o:["안중근","윤봉길","김좌진","유관순"], a:0,
-e:"안중근 의사는 1909년 하얼빈역에서 이토 히로부미를 저격했습니다. 이후 동양평화론을 집필하기도 했습니다."
-},
-{
-q:"대한민국 정부가 수립된 해는 언제일까요?",
-o:["1945년","1948년","1950년","1953년"], a:1,
-e:"대한민국 정부는 1948년 8월 15일 수립되었습니다. 광복은 1945년 8월 15일이므로 두 날짜를 구분하는 것이 중요합니다."
-}
+{q:"고조선을 건국했다고 전해지는 인물은 누구일까요?",o:["단군왕검","주몽","박혁거세","온조"],a:0,e:"『삼국유사』 등에 따르면 단군왕검이 고조선을 건국했다고 전해집니다. 전통적으로 건국 연대는 기원전 2333년으로 알려져 있습니다."},
+{q:"삼국 중 가장 먼저 한강 유역을 차지하며 전성기를 맞은 나라는 어디일까요?",o:["고구려","백제","신라","가야"],a:1,e:"백제는 한강 유역을 기반으로 성장했고 근초고왕 때 전성기를 맞았습니다. 이후 고구려 장수왕, 신라 진흥왕이 한강 유역을 차지했습니다."},
+{q:"고구려의 전성기를 이끌며 영토를 크게 넓힌 왕은 누구일까요?",o:["광개토대왕","무령왕","진흥왕","성왕"],a:0,e:"광개토대왕은 고구려 영토를 크게 확장한 왕입니다. 그의 정복 활동과 업적은 광개토대왕릉비에 기록되어 있습니다."},
+{q:"신라가 삼국 통일 과정에서 동맹을 맺은 나라는 어디일까요?",o:["수","당","원","명"],a:1,e:"신라는 당나라와 나당연합을 맺어 660년 백제, 668년 고구려를 멸망시키는 데 성공했습니다."},
+{q:"통일신라 시대에 불국사와 석굴암이 조성된 시기의 왕은 누구일까요?",o:["신문왕","경덕왕","문무왕","진성여왕"],a:1,e:"불국사와 석굴암은 통일신라 경덕왕 때 김대성이 조성을 시작한 것으로 전해지며, 통일신라 불교문화의 대표 유산입니다."},
+{q:"고려를 건국한 인물은 누구일까요?",o:["왕건","궁예","견훤","최영"],a:0,e:"왕건은 918년 고려를 건국했고, 936년 후삼국을 통일했습니다. 고려의 초대 왕으로 태조 왕건이라 부릅니다."},
+{q:"고려 시대에 거란의 침입을 막는 데 활약한 장군은 누구일까요?",o:["강감찬","이성계","김유신","권율"],a:0,e:"강감찬은 고려 현종 때 거란의 제3차 침입을 막았고, 1019년 귀주대첩에서 큰 승리를 거뒀습니다."},
+{q:"고려가 몽골 침입에 맞서 수도를 옮긴 곳은 어디일까요?",o:["제주도","강화도","진도","거제도"],a:1,e:"고려는 몽골 기병의 공격을 피하고 장기 항전을 위해 1232년 수도를 개경에서 강화도로 옮겼습니다."},
+{q:"조선을 건국한 인물은 누구일까요?",o:["정도전","이성계","이방원","최영"],a:1,e:"이성계는 위화도 회군 이후 정치적 주도권을 잡고 1392년 조선을 건국해 초대 왕 태조가 되었습니다."},
+{q:"훈민정음을 창제한 조선의 왕은 누구일까요?",o:["태종","세종","세조","성종"],a:1,e:"세종은 백성이 쉽게 글을 쓰고 읽을 수 있도록 훈민정음을 창제했습니다. 1443년 창제, 1446년 반포가 핵심 연도입니다."},
+{q:"임진왜란이 시작된 해는 언제일까요?",o:["1592년","1600년","1636년","1453년"],a:0,e:"임진왜란은 1592년에 시작됐습니다. 이후 정유재란까지 이어져 1598년에 끝났습니다."},
+{q:"임진왜란 당시 한산도대첩을 이끈 장군은 누구일까요?",o:["이순신","권율","곽재우","김시민"],a:0,e:"이순신은 1592년 한산도대첩에서 조선 수군을 지휘해 일본 수군을 크게 격파했습니다."},
+{q:"조선 후기 정조가 건설한 성곽은 무엇일까요?",o:["남한산성","수원 화성","북한산성","공산성"],a:1,e:"정조는 아버지 사도세자의 능을 수원으로 옮긴 뒤 수원 화성을 건설했습니다. 정약용과 거중기도 함께 자주 언급됩니다."},
+{q:"조선 후기 대동법 시행을 확대하는 데 크게 기여한 인물은 누구일까요?",o:["김육","조광조","송시열","김정호"],a:0,e:"김육은 대동법 확대 시행을 적극 추진했습니다. 대동법은 공납의 폐단을 줄이고 쌀·포·동전 등으로 납부하게 한 제도입니다."},
+{q:"흥선대원군이 집권기에 추진한 정책으로 옳은 것은 무엇일까요?",o:["서원 대폭 정리","과거제 폐지","한글 전용 정책","신분제 완전 폐지"],a:0,e:"흥선대원군은 왕권 강화와 국가 재정 확보를 위해 전국의 서원을 대폭 정리했습니다."},
+{q:"강화도조약이 체결된 해는 언제일까요?",o:["1866년","1876년","1882년","1894년"],a:1,e:"강화도조약은 1876년 조선과 일본 사이에 체결되었습니다. 최초의 근대적 조약으로 평가되지만 일본에 유리한 불평등 조약이었습니다."},
+{q:"동학농민운동에서 농민군을 이끈 대표적인 지도자는 누구일까요?",o:["전봉준","안중근","김구","윤봉길"],a:0,e:"전봉준은 1894년 동학농민운동의 대표 지도자이며 '녹두장군'이라는 별명으로도 잘 알려져 있습니다."},
+{q:"1919년 3·1운동 이후 수립된 정부는 무엇일까요?",o:["대한민국 임시정부","대한제국","통감부","조선총독부"],a:0,e:"3·1운동 이후 독립운동 세력을 통합하기 위해 1919년 중국 상하이에서 대한민국 임시정부가 수립되었습니다."},
+{q:"이토 히로부미를 하얼빈에서 저격한 독립운동가는 누구일까요?",o:["안중근","윤봉길","김좌진","유관순"],a:0,e:"안중근 의사는 1909년 하얼빈역에서 이토 히로부미를 저격했습니다. 이후 동양평화론을 집필하기도 했습니다."},
+{q:"대한민국 정부가 수립된 해는 언제일까요?",o:["1945년","1948년","1950년","1953년"],a:1,e:"대한민국 정부는 1948년 8월 15일 수립되었습니다. 광복은 1945년 8월 15일이므로 두 날짜를 구분하는 것이 중요합니다."}
 ];
 
-const quiz = document.getElementById("quiz");
+const quiz=document.getElementById("quiz");
 qs.forEach((x,i)=>{
   const sec=document.createElement("section");
   sec.className="q";
-  sec.innerHTML=`<h2>${i+1}. ${x.q}</h2>` +
-    x.o.map((v,j)=>`<label class="opt"><input type="radio" name="q${i}" value="${j}">${String.fromCharCode(65+j)}. ${v}</label>`).join("") +
-    `<div class="explain" id="e${i}"></div>`;
+  sec.innerHTML=`<div class="q-head"><div class="num">${i+1}</div><h2>${x.q}</h2></div><div class="options">${x.o.map((v,j)=>`<label class="opt"><input type="radio" name="q${i}" value="${j}"><span class="choice">${String.fromCharCode(65+j)}</span><span>${v}</span></label>`).join("")}</div><div class="explain" id="e${i}"></div>`;
   quiz.appendChild(sec);
 });
 
 function updateProgress(){
   let c=0;
-  qs.forEach((_,i)=>{ if(document.querySelector(`input[name="q${i}"]:checked`)) c++; });
+  qs.forEach((_,i)=>{if(document.querySelector(`input[name="q${i}"]:checked`))c++;});
   document.getElementById("progressText").textContent=`${c} / ${qs.length} 응답`;
   document.getElementById("progressBar").style.width=`${c/qs.length*100}%`;
 }
-document.addEventListener("change", updateProgress);
+document.addEventListener("change",updateProgress);
 
 document.getElementById("grade").addEventListener("click",()=>{
   let score=0;
+  let firstMissed=null;
   qs.forEach((x,i)=>{
     const picked=document.querySelector(`input[name="q${i}"]:checked`);
     const labels=[...document.querySelectorAll(`input[name="q${i}"]`)].map(el=>el.parentElement);
@@ -282,22 +303,23 @@ document.getElementById("grade").addEventListener("click",()=>{
     labels[x.a].classList.add("correct");
     const ex=document.getElementById(`e${i}`);
     if(!picked){
+      if(firstMissed===null) firstMissed=document.querySelectorAll('.q')[i];
       ex.innerHTML=`<b>정답: ${String.fromCharCode(65+x.a)}. ${x.o[x.a]}</b><br>${x.e}`;
     }else{
       const val=Number(picked.value);
       if(val===x.a){
         score++;
-        ex.innerHTML=`<b>정답!</b> ${String.fromCharCode(65+x.a)}. ${x.o[x.a]}<br>${x.e}`;
+        ex.innerHTML=`<b style="color:#15803d">정답!</b> ${String.fromCharCode(65+x.a)}. ${x.o[x.a]}<br>${x.e}`;
       }else{
         picked.parentElement.classList.add("wrong");
-        ex.innerHTML=`<b>오답.</b> 정답은 ${String.fromCharCode(65+x.a)}. ${x.o[x.a]}<br>${x.e}`;
+        ex.innerHTML=`<b style="color:#b42318">오답.</b> 정답은 ${String.fromCharCode(65+x.a)}. ${x.o[x.a]}<br>${x.e}`;
       }
     }
     ex.classList.add("show");
   });
 
   const r=document.getElementById("result");
-  document.getElementById("score").textContent=`${score} / ${qs.length}점`;
+  document.getElementById("score").textContent=`${score} / ${qs.length}`;
   let comment="";
   if(score<=7) comment="한국사 다시 시작해야 함 😂";
   else if(score<=12) comment="기본 상식 보유 👍";
