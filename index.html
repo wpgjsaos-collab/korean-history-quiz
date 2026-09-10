@@ -198,6 +198,25 @@
   .result-label{font-size:.92rem;color:rgba(255,255,255,.7);font-weight:700}
   #score{font-size:clamp(2.5rem,8vw,4.2rem);font-weight:900;letter-spacing:-.05em;margin:5px 0;color:#fff}
   #comment{font-size:1.06rem;font-weight:750;color:#f4d797}
+  #prize{
+    display:none;
+    max-width:520px;
+    margin:22px auto 2px;
+    padding:20px 18px;
+    border:2px dashed rgba(255,255,255,.62);
+    border-radius:18px;
+    background:linear-gradient(135deg,#f7d77f,#d8a74a);
+    color:#102845;
+    box-shadow:0 14px 34px rgba(0,0,0,.18);
+    position:relative;
+    z-index:1;
+    transform:rotate(-1deg);
+  }
+  #prize.show{display:block;animation:prizePop .48s cubic-bezier(.2,.85,.25,1.35)}
+  @keyframes prizePop{from{opacity:0;transform:scale(.75) rotate(-4deg)}to{opacity:1;transform:scale(1) rotate(-1deg)}}
+  .prize-small{font-size:.78rem;font-weight:900;letter-spacing:.12em;opacity:.72}
+  .prize-title{font-size:clamp(1.35rem,5vw,2rem);font-weight:950;letter-spacing:-.04em;margin:7px 0 5px}
+  .prize-sub{font-size:.9rem;font-weight:700;opacity:.82}
   .footer{text-align:center;color:#8a8f96;font-size:.82rem;margin-top:30px;line-height:1.6}
   @media (max-width:680px){
     .hero{padding-top:34px;padding-bottom:48px}
@@ -248,6 +267,11 @@
     <div class="result-label">최종 점수</div>
     <div id="score"></div>
     <div id="comment"></div>
+    <div id="prize">
+      <div class="prize-small">PERFECT SCORE REWARD</div>
+      <div class="prize-title">🍻 건이와의 낮술 데이트권 🍻</div>
+      <div class="prize-sub">20문제 전부 맞힌 사람만 획득 가능 · 축하합니다 🎉</div>
+    </div>
   </div>
 
   <div class="footer">한국사 상식퀴즈 · 답안을 제출하면 각 문제의 정답과 해설이 표시됩니다.</div>
@@ -295,7 +319,6 @@ document.addEventListener("change",updateProgress);
 
 document.getElementById("grade").addEventListener("click",()=>{
   let score=0;
-  let firstMissed=null;
   qs.forEach((x,i)=>{
     const picked=document.querySelector(`input[name="q${i}"]:checked`);
     const labels=[...document.querySelectorAll(`input[name="q${i}"]`)].map(el=>el.parentElement);
@@ -303,7 +326,6 @@ document.getElementById("grade").addEventListener("click",()=>{
     labels[x.a].classList.add("correct");
     const ex=document.getElementById(`e${i}`);
     if(!picked){
-      if(firstMissed===null) firstMissed=document.querySelectorAll('.q')[i];
       ex.innerHTML=`<b>정답: ${String.fromCharCode(65+x.a)}. ${x.o[x.a]}</b><br>${x.e}`;
     }else{
       const val=Number(picked.value);
@@ -325,8 +347,9 @@ document.getElementById("grade").addEventListener("click",()=>{
   else if(score<=12) comment="기본 상식 보유 👍";
   else if(score<=16) comment="한국사 꽤 잘함 😎";
   else if(score<=19) comment="한국사 고수 🔥";
-  else comment="20점 만점! 역사 선생님 의심해봐야 함 ㅋㅋ";
+  else comment="퍼펙트! 약속된 특별 보상이 열렸습니다 🎉";
   document.getElementById("comment").textContent=comment;
+  document.getElementById("prize").classList.toggle("show",score===qs.length);
   r.classList.add("show");
   r.scrollIntoView({behavior:"smooth",block:"center"});
 });
@@ -336,6 +359,7 @@ document.getElementById("reset").addEventListener("click",()=>{
   document.querySelectorAll(".opt").forEach(x=>x.classList.remove("correct","wrong"));
   document.querySelectorAll(".explain").forEach(x=>x.classList.remove("show"));
   document.getElementById("result").classList.remove("show");
+  document.getElementById("prize").classList.remove("show");
   updateProgress();
   window.scrollTo({top:0,behavior:"smooth"});
 });
